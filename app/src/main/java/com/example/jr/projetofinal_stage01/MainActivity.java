@@ -1,10 +1,13 @@
 package com.example.jr.projetofinal_stage01;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +20,21 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         GridView grid = (GridView) findViewById(R.id.gridView);
+
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getBaseContext(), DetalheActivity.class);
+                Bundle b = new Bundle();
+
+                b.putString("nome", "Junior"); //// MUDAR
+
+                i.putExtras(b);
+                startActivity(i);
+                finish();
+
+            }
+        });
 
         String[] imagens = new String[] {"https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
                 "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
@@ -45,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
         ImagemAdapter imageAdapter = new ImagemAdapter(this, imagens);
 
         grid.setAdapter(imageAdapter);
-
-
     }
 
     @Override
@@ -63,4 +79,24 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+//    private AdapterView.OnItemClickListener onGridViewItemClick() {
+//        Log.e("lol","1");
+//        return new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent i = new Intent(getBaseContext(), DetalheActivity.class);
+//                Bundle b = new Bundle();
+//                b.putString("nome", "Junior");
+//                i.putExtras(b);
+//                startActivity(i);
+//                finish();
+//            }
+//        };
+//    }
+
+
+
 }
