@@ -10,14 +10,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 /**
  * Created by Jr on 07/04/2016.
  */
 public class ImagemAdapter extends BaseAdapter {
-    private int [] imagens;
+    private String [] imagens;
     private Context context;
 
-    public ImagemAdapter (Context c, int[] imagens) {
+    public ImagemAdapter (Context c, String[] imagens) {
         this.context = c;
         this.imagens = imagens;
     }
@@ -41,7 +43,9 @@ public class ImagemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = LayoutInflater.from(this.context).inflate(R.layout.adapter_imagem, parent, false);
         ImageView img = (ImageView) view.findViewById(R.id.img);
-        img.setImageResource(imagens[position]);
+
+        Picasso.with(context).load(imagens[position]).into(img);
+    //    img.setImageResource(imagens[position]);
         return view;
     }
 }

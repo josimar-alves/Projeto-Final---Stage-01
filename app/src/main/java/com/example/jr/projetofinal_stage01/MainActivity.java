@@ -18,12 +18,29 @@ public class MainActivity extends AppCompatActivity {
 
         GridView grid = (GridView) findViewById(R.id.gridView);
 
-        int[] imagens = new int[]{R.drawable.sample_0, R.drawable.sample_1,
-                R.drawable.sample_2, R.drawable.sample_3,
-                R.drawable.sample_3, R.drawable.sample_5,
-                R.drawable.sample_0, R.drawable.sample_1,
-                R.drawable.sample_2, R.drawable.sample_3,
-                R.drawable.sample_3, R.drawable.sample_5};
+        String[] imagens = new String[] {"https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
+                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
+                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
+                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
+                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
+                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
+                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
+                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
+                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
+                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
+                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
+                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
+                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
+                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
+                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
+                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg"};
+
+//        int[] imagens = new int[]{R.drawable.sample_0, R.drawable.sample_1,
+//                R.drawable.sample_2, R.drawable.sample_3,
+//                R.drawable.sample_3, R.drawable.sample_5,
+//                R.drawable.sample_0, R.drawable.sample_1,
+//                R.drawable.sample_2, R.drawable.sample_3,
+//                R.drawable.sample_3, R.drawable.sample_5};
 
         ImagemAdapter imageAdapter = new ImagemAdapter(this, imagens);
 
