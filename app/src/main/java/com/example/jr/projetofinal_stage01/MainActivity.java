@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +24,16 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        List<Filme> filmes = new ArrayList<Filme>();
+
+        try {
+            filmes = new DownloadJson().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         GridView grid = (GridView) findViewById(R.id.gridView);
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -27,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(getBaseContext(), DetalheActivity.class);
                 Bundle b = new Bundle();
 
+                Log.e("Posição:", "" + position); // Testando a posição do click
                 b.putString("nome", "Junior"); //// MUDAR
 
                 i.putExtras(b);
@@ -36,33 +52,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String[] imagens = new String[] {"https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
-                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
-                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
-                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
-                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
-                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
-                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
-                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
-                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
-                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
-                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
-                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
-                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg",
-                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
-                "http://www.teamplay.com.br/imagens/jogos-descricao/lol/League_of_Legends_logo.jpg",
-                "https://pbs.twimg.com/media/CfEfxKEW8AAj-hj.jpg"};
-
-//        int[] imagens = new int[]{R.drawable.sample_0, R.drawable.sample_1,
-//                R.drawable.sample_2, R.drawable.sample_3,
-//                R.drawable.sample_3, R.drawable.sample_5,
-//                R.drawable.sample_0, R.drawable.sample_1,
-//                R.drawable.sample_2, R.drawable.sample_3,
-//                R.drawable.sample_3, R.drawable.sample_5};
-
-        ImagemAdapter imageAdapter = new ImagemAdapter(this, imagens);
-
+        String[] links = getLinks(filmes);
+        ImagemAdapter imageAdapter = new ImagemAdapter(this, links);
         grid.setAdapter(imageAdapter);
+    }
+
+    private String[] getLinks(List<Filme> filmes) {
+        String[] links = new String[filmes.size()];
+        int x = 0;
+        for (Filme f: filmes) {
+            links[x] = f.getLinkImg();
+            x += 1;
+        }
+        return links;
     }
 
     @Override
@@ -79,24 +81,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-//    private AdapterView.OnItemClickListener onGridViewItemClick() {
-//        Log.e("lol","1");
-//        return new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent i = new Intent(getBaseContext(), DetalheActivity.class);
-//                Bundle b = new Bundle();
-//                b.putString("nome", "Junior");
-//                i.putExtras(b);
-//                startActivity(i);
-//                finish();
-//            }
-//        };
-//    }
-
-
-
 }
