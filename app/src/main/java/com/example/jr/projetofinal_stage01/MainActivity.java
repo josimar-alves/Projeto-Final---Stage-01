@@ -26,8 +26,17 @@ public class MainActivity extends AppCompatActivity {
         List<Filme> filmes = new ArrayList<Filme>();
         GridView grid = (GridView) findViewById(R.id.gridView);
 
+        String tipo = "";
+        Bundle b = getIntent().getExtras();
+
+        if (b == null) {
+            tipo = "popular";
+        } else {
+            tipo = b.getString("tipo");
+        }
+
         try {
-            filmes = new JsonManager().execute().get();
+            filmes = new JsonManager().execute(tipo).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -55,17 +64,16 @@ public class MainActivity extends AppCompatActivity {
                 b.putString("titulo", f.getTitulo());
                 i.putExtras(b);
                 startActivity(i);
-                // finish();
+                finish();
             }
         });
-
 
     }
 
     private String[] getLinks(List<Filme> filmes) {
         String[] links = new String[filmes.size()];
         int x = 0;
-        for (Filme f: filmes) {
+        for (Filme f : filmes) {
             links[x] = f.getLinkImg();
             x += 1;
         }
@@ -83,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

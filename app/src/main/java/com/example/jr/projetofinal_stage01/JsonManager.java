@@ -28,16 +28,14 @@ public class JsonManager extends AsyncTask<String, Void, List<Filme>> {
         super.onPreExecute();
     }
 
-    @Override
-
     protected List<Filme> doInBackground(String... params) {
-
+        String tipo = params[0];
         HttpURLConnection urlConnection = null;
         BufferedReader leitor = null;
         String json = null;
 
         try {
-            URL url = new URL("https://api.themoviedb.org/3/movie/popular?api_key=" + API_KEY);
+            URL url = new URL("https://api.themoviedb.org/3/movie/" + tipo + "?api_key=" + API_KEY);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
@@ -83,11 +81,9 @@ public class JsonManager extends AsyncTask<String, Void, List<Filme>> {
         return null;
     }
 
-
     protected void onPostExecute(List<Filme> result) {
         super.onPostExecute(result);
     }
-
 
     private List<Filme> getJson(String jsonStr) throws JSONException {
         JSONObject json = new JSONObject(jsonStr);
@@ -99,7 +95,6 @@ public class JsonManager extends AsyncTask<String, Void, List<Filme>> {
             JSONObject f = jsonArray.getJSONObject(i);
             filme = new Filme("http://image.tmdb.org/t/p/w300" + f.getString("poster_path"), f.getString("overview"), f.getString("release_date"), f.getString("original_title"), f.getString("original_language"), f.getString("title"));
             listFilmes.add(filme);
-           // Log.e("lol", filme.toString());
         }
         return listFilmes;
     }

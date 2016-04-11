@@ -58,7 +58,6 @@ public class DetalheActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(titulo);
         }
-
     }
 
     @Override
