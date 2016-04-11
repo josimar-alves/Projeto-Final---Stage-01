@@ -12,11 +12,14 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
-
+    private String tipo = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        Bundle bundle = getIntent().getExtras();
+        tipo = bundle.getString("tipo");
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -64,10 +67,21 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
-            finish();
+            voltar();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed() {
+        voltar();
+    }
+
+    private void voltar () {
+        Intent i = new Intent(getBaseContext(), MainActivity.class);
+        Bundle b = new Bundle();
+        b.putString("tipo", tipo);
+        i.putExtras(b);
+        startActivity(i);
+        finish();
     }
 }

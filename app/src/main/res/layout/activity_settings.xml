@@ -26,12 +26,12 @@
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Popular"
+            android:text="Filmes Populares"
             android:id="@+id/popular"/>
         <RadioButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Mais Votados"
+            android:text="Filmes Mais Votados"
             android:id="@+id/top_rated"
             />
     </RadioGroup>

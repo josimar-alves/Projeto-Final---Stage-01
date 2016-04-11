@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
-
+    private String tipo = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         List<Filme> filmes = new ArrayList<Filme>();
         GridView grid = (GridView) findViewById(R.id.gridView);
 
-        String tipo = "";
+
         Bundle b = getIntent().getExtras();
 
         if (b == null) {
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 b.putString("titulo", f.getTitulo());
                 i.putExtras(b);
                 startActivity(i);
-                finish();
             }
         });
 
@@ -90,9 +89,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+            Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+            Bundle b = new Bundle();
+            b.putString("tipo", tipo);
+            i.putExtras(b);
+            startActivity(i);
             finish();
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
