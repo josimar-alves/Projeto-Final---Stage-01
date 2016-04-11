@@ -96,7 +96,7 @@ public class DownloadJson extends AsyncTask<String, Void, List<Filme>> {
         Filme filme;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject f = jsonArray.getJSONObject(i);
-            filme = new Filme("http://image.tmdb.org/t/p/w342" + f.getString("poster_path"), f.getString("overview"), f.getString("release_date"), f.getString("original_title"), f.getString("original_language"), f.getString("title"));
+            filme = new Filme("http://image.tmdb.org/t/p/w300" + f.getString("poster_path"), f.getString("overview"), f.getString("release_date"), f.getString("original_title"), f.getString("original_language"), f.getString("title"));
             listFilmes.add(filme);
            // Log.e("lol", filme.toString());
         }

@@ -1,7 +1,11 @@
 package com.example.jr.projetofinal_stage01;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +32,11 @@ public class DetalheActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalhe);
         Bundle b = getIntent().getExtras();
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         mTituloOriginal = (TextView) findViewById(R.id.tituloOriginal);
         mTitulo = (TextView) findViewById(R.id.titulo);
         mIdioma = (TextView) findViewById(R.id.idioma);
@@ -48,5 +57,20 @@ public class DetalheActivity extends AppCompatActivity {
         mIdioma.setText("Idioma: " + idioma);
         mData.setText("Data Release: " + dataRelease);
         mSinopse.setText("Sinopse: " + sinopse);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
