@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,19 +35,23 @@ public class MainActivity extends AppCompatActivity {
 
         GridView grid = (GridView) findViewById(R.id.gridView);
 
+        final List<Filme> finalFilmes = filmes;
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getBaseContext(), DetalheActivity.class);
                 Bundle b = new Bundle();
 
-                Log.e("Posição:", "" + position); // Testando a posição do click
-                b.putString("nome", "Junior"); //// MUDAR
-
+                Filme f = finalFilmes.get(position);
+                b.putString("link", f.getLinkImg());
+                b.putString("sinopse", f.getSinopse());
+                b.putString("dataRelease", f.getDataRelease());
+                b.putString("tituloOriginal", f.getTituloOriginal());
+                b.putString("idioma", f.getIdioma());
+                b.putString("titulo", f.getTitulo());
                 i.putExtras(b);
                 startActivity(i);
-                finish();
-
+               // finish();
             }
         });
 
