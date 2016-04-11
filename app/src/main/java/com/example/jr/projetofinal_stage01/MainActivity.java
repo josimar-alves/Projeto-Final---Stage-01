@@ -24,16 +24,20 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         List<Filme> filmes = new ArrayList<Filme>();
+        GridView grid = (GridView) findViewById(R.id.gridView);
 
         try {
-            filmes = new DownloadJson().execute().get();
+            filmes = new JsonManager().execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        GridView grid = (GridView) findViewById(R.id.gridView);
+        if (filmes != null) {
+            String[] links = getLinks(filmes);
+            ImagemAdapter imageAdapter = new ImagemAdapter(this, links);
+            grid.setAdapter(imageAdapter);
+        }
 
         final List<Filme> finalFilmes = filmes;
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -51,13 +55,11 @@ public class MainActivity extends AppCompatActivity {
                 b.putString("titulo", f.getTitulo());
                 i.putExtras(b);
                 startActivity(i);
-               // finish();
+                // finish();
             }
         });
 
-        String[] links = getLinks(filmes);
-        ImagemAdapter imageAdapter = new ImagemAdapter(this, links);
-        grid.setAdapter(imageAdapter);
+
     }
 
     private String[] getLinks(List<Filme> filmes) {
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

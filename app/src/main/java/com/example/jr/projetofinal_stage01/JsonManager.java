@@ -19,8 +19,9 @@ import java.util.List;
 /**
  * Created by Jr on 10/04/2016.
  */
-public class DownloadJson extends AsyncTask<String, Void, List<Filme>> {
-    private final String LOG_TAG = DownloadJson.class.getSimpleName();
+public class JsonManager extends AsyncTask<String, Void, List<Filme>> {
+    private final String LOG_TAG = JsonManager.class.getSimpleName();
+    private final String API_KEY = "79919b501a3624188f03afd85f62db76";
 
     @Override
     protected void onPreExecute() {
@@ -36,7 +37,7 @@ public class DownloadJson extends AsyncTask<String, Void, List<Filme>> {
         String json = null;
 
         try {
-            URL url = new URL("https://api.themoviedb.org/3/movie/popular?api_key=79919b501a3624188f03afd85f62db76");
+            URL url = new URL("https://api.themoviedb.org/3/movie/popular?api_key=" + API_KEY);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();

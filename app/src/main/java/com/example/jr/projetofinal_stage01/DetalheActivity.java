@@ -32,11 +32,6 @@ public class DetalheActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalhe);
         Bundle b = getIntent().getExtras();
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         mTituloOriginal = (TextView) findViewById(R.id.tituloOriginal);
         mTitulo = (TextView) findViewById(R.id.titulo);
         mIdioma = (TextView) findViewById(R.id.idioma);
@@ -57,6 +52,13 @@ public class DetalheActivity extends AppCompatActivity {
         mIdioma.setText("Idioma: " + idioma);
         mData.setText("Data Release: " + dataRelease);
         mSinopse.setText("Sinopse: " + sinopse);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(titulo);
+        }
+
     }
 
     @Override
